@@ -10,64 +10,93 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Example</div>
+            <div class="panel panel-success">
+                <div class="panel-heading">Log in!</div>
                 <div class="panel-body" id="example-panel">
                     <section class="box-container">
                         <div class="box show-front">
-                            <figure class="boxerjs-front">front</figure>
-                            <figure class="boxerjs-back">back</figure>
-                            <figure class="boxerjs-right">right</figure>
-                            <figure class="boxerjs-left">left</figure>
-                            <figure class="boxerjs-top">top</figure>
-                            <figure class="boxerjs-bottom">bottom</figure>
+                            <figure class="boxerjs-front">
+                                <form class="form-body" id="login-form">
+                                    <h2 class="form-signin-heading">Please sign in</h2>
+                                    <label for="inputUsername" class="sr-only">Email address</label>
+                                    <input id="inputUsername" class="form-control" placeholder="username" autofocus>
+                                    <label for="inputPassword" class="sr-only">Password</label>
+                                    <input type="password" id="inputPassword" class="form-control"
+                                           placeholder="Password">
+
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="remember-me"> Remember me
+                                        </label>
+                                    </div>
+                                    <button id="signin-button" class="btn btn-lg btn-primary btn-block" type="submit">
+                                        Sign in
+                                    </button>
+                                    <a href="" id="forgot-password">Forgot password?</a>
+                                </form>
+                            </figure>
+                            <figure class="boxerjs-back">
+                                <form class="form-body">
+                                    <h2 class="form-signin-heading">Forgot Password?</h2>
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i
+                                                        class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                                <input placeholder="email address"
+                                                       class="form-control" type="email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input id="password-reset" class="btn btn-lg btn-primary btn-block"
+                                                   value="Reset my password!" type="submit">
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </figure>
+                            <figure class="boxerjs-right">
+                                <div class="form-body">
+                                    <p>An e-mail has been sent to you to reset your password.</p>
+                                    <button id="proceed-to-sign-in" class="btn btn-lg btn-primary btn-block">
+                                        Proceed to sign in...
+                                    </button>
+                                </div>
+                            </figure>
+                            <figure class="boxerjs-left">
+                                <div class="form-body">
+                                    <p>Welcome <span id="username"></span>!</p>
+
+                                    <p>You are logged in.</p>
+                                    <button id="view-profile" class="btn btn-lg btn-primary btn-block">
+                                        View profile
+                                    </button>
+                                    <button id="log-out" class="btn btn-lg btn-primary btn-block">
+                                        Log out
+                                    </button>
+                                </div>
+                            </figure>
+                            <figure class="boxerjs-top">
+                                <div class="form-body">
+                                    <p>You are logged out.</p>
+                                    <button id="sign-in-from-logout" class="btn btn-lg btn-primary btn-block">
+                                        Sign in
+                                    </button>
+                                </div>
+                            </figure>
+                            <figure class="boxerjs-bottom">
+                                <div class="form-body">
+                                    <p>This is your profile</p>
+                                    <button id="back" class="btn btn-lg btn-primary btn-block">
+                                        Back
+                                    </button>
+                                </div>
+                            </figure>
                         </div>
                     </section>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <section class="col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">Facings</div>
-                <div class="panel-body">
-                    <div class="btn-group btn-group-sm" role="group">
-                        <button class="show-front-button btn btn-default">Show front</button>
-                        <button class="show-back-button btn btn-default">Show back</button>
-                        <button class="show-right-button btn btn-default">Show right</button>
-                        <button class="show-left-button btn btn-default">Show left</button>
-                        <button class="show-top-button btn btn-default">Show top</button>
-                        <button class="show-bottom-button btn btn-default">Show bottom</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">Sizes</div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="width">Width (px)</label>
-                        <input class="form-control" id="width" placeholder="300" value="300">
-                        <label for="height">Height (px)</label>
-                        <input class="form-control" id="height" placeholder="200" value="200">
-                        <label for="depth">Depth (px)</label>
-                        <input class="form-control" id="depth" placeholder="100" value="100">
-                        <div class="checkbox">
-                            <label>
-                                <input id="show-backfaces" type="checkbox"> Show backfaces
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button id="go-button" class="btn btn-info" type="submit">Go</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
 </div>
 <script src="../../utils.js"></script>
 <script src="../../src/boxerjs.js"></script>

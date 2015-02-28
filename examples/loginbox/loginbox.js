@@ -1,35 +1,41 @@
-var init = function() {
-    var boxes = null;
-
-    function boxify(){
-        console.log(document.querySelector("#show-backfaces").checked);
-        boxes = BOXERJS.boxify(".box-container", ".box", {
-            width : document.querySelector("#width").value,
-            height : document.querySelector("#height").value,
-            depth : document.querySelector("#depth").value,
-            showBackfaces : document.querySelector("#show-backfaces").checked
-        });
-    }
-    document.querySelector("#go-button").addEventListener( 'click', boxify, false);
-    document.querySelector(".show-front-button").addEventListener('click', function(){
-        boxes.showFront();
+window.addEventListener('DOMContentLoaded', function () {
+    var rotators = BOXERJS.boxify(".box-container", ".box", {
+        width: 300,
+        height: 300,
+        depth: 300,
+        showBackfaces: false
+    });
+    document.querySelector("#signin-button").addEventListener('click', function(event){
+        event.preventDefault();
+        document.querySelector("#username").innerHTML = document.querySelector("#inputUsername").value;
+        rotators.showLeft();
     }, false);
-    document.querySelector(".show-back-button").addEventListener('click', function(){
-        boxes.showBack();
+    document.querySelector("#forgot-password").addEventListener('click', function(event){
+        event.preventDefault();
+        rotators.showBack();
     }, false);
-    document.querySelector(".show-left-button").addEventListener('click', function(){
-        boxes.showLeft();
+    document.querySelector("#proceed-to-sign-in").addEventListener('click', function(event){
+        event.preventDefault();
+        rotators.showFront();
     }, false);
-    document.querySelector(".show-right-button").addEventListener('click', function(){
-        boxes.showRight();
+    document.querySelector("#password-reset").addEventListener('click', function(event){
+        event.preventDefault();
+        rotators.showRight();
     }, false);
-    document.querySelector(".show-top-button").addEventListener('click', function(){
-        boxes.showTop();
+    document.querySelector("#log-out").addEventListener('click', function(event){
+        event.preventDefault();
+        rotators.showTop();
     }, false);
-    document.querySelector(".show-bottom-button").addEventListener('click', function(){
-        boxes.showBottom();
+    document.querySelector("#sign-in-from-logout").addEventListener('click', function(event){
+        event.preventDefault();
+        rotators.showFront();
     }, false);
-
-    boxify();
-}
-window.addEventListener( 'DOMContentLoaded', init, false);
+    document.querySelector("#view-profile").addEventListener('click', function(event){
+        event.preventDefault();
+        rotators.showBottom();
+    }, false);
+    document.querySelector("#back").addEventListener('click', function(event){
+        event.preventDefault();
+        rotators.showLeft();
+    }, false);
+}, false);

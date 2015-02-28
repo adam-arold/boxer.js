@@ -2,41 +2,50 @@
 .container {
     margin-top: 10px;
 }
-#example-panel {
-    min-height: 250px;
+#login-form {
+    padding: 10px;
 }
 .box-container {
-    border: 1px solid;
+    margin: 10px auto;
+    perspective-origin: 50% 120%;
 }
 .box {
     transition: all 0.85s;
 }
 .box figure {
-    font-size: 2em;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-.box .boxerjs-front {
-    background: hsla(000, 100%, 50%, 0.7);
+    background-color: #eee;
+    box-shadow: inset 0px 0px 20px 1px rgba(0,0,0,0.5);
 }
 
-.box .boxerjs-back {
-    background: hsla(160, 100%, 50%, 0.7);
+/* signin */
+.form-body {
+    padding: 15px;
+    margin: 0 auto;
 }
-
-.box .boxerjs-right {
-    background: hsla(120, 100%, 50%, 0.7);
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
 }
-
-.box .boxerjs-left {
-    background: hsla(180, 100%, 50%, 0.7);
+.form-signin .checkbox {
+    font-weight: normal;
 }
-
-.box .boxerjs-top {
-    background: hsla(240, 100%, 50%, 0.7);
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
 }
-
-.box .boxerjs-bottom {
-    background: hsla(300, 100%, 50%, 0.7);
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }

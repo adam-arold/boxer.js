@@ -10,8 +10,7 @@ var BOXERJS = (function () {
      * @param containerSelector for example <code>.container</code>
      * @param boxSelector for example <code>.box</code>
      * @param descriptor
-     * @returns Functions for rotating the box:
-     * {{showFront: showFront, showBack: showBack, showLeft: showLeft, showRight: showRight, showTop: showTop, showBottom: showBottom}}
+     * @returns {showFront: showFront, showBack: showBack, showLeft: showLeft, showRight: showRight, showTop: showTop, showBottom: showBottom}
      */
     function boxify(containerSelector, boxSelector, descriptor) {
 

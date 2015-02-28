@@ -1,7 +1,7 @@
 /**
  * boxer.js is a tiny library for creating rotating 3d boxes.
  */
-BOXERJS = (function () {
+var BOXERJS = (function () {
     "use strict";
     /**
      * Boxifies the box (selected by <code>boxSelector</code>) inside the container (selected by <code>containerSelector</code>).
@@ -13,56 +13,45 @@ BOXERJS = (function () {
      * @returns {showFront: showFront, showBack: showBack, showLeft: showLeft, showRight: showRight, showTop: showTop, showBottom: showBottom}
      */
     function boxify(containerSelector, boxSelector, descriptor) {
-
         checkConstraints(containerSelector, boxSelector, descriptor);
-
-        // container styles
         var container = document.querySelector(containerSelector);
         setContainerStyles(container, descriptor);
-
-        // box styles
         var box = document.querySelector(boxSelector);
         setBoxStyles(box);
-
-        // child styles
         setSideStyles(box);
-
         var sides = processSides(box, descriptor);
-        sides.frontSide.style.transform = "translateZ(" + (descriptor.depth / 2) + "px)";
-        sides.backSide.style.transform = "rotateX(-180deg) translateZ(" + (descriptor.depth / 2) + "px)";
-        sides.leftSide.style.transform = "rotateY(-90deg) translateZ(" + (descriptor.width / 2) + "px)";
-        sides.rightSide.style.transform = "rotateY(90deg) translateZ(" + (descriptor.width / 2) + "px)";
-        sides.topSide.style.transform = "rotateX(90deg) translateZ(" + (descriptor.height / 2) + "px)";
-        sides.bottomSide.style.transform = "rotateX(-90deg) translateZ(" + (descriptor.height / 2) + "px)";
-
-        box.style.transform = "translateZ( -" + (descriptor.depth / 2) + "px )"
+        sides.frontSide.setVendorPrefixedStyle("transform", "translateZ(" + (descriptor.depth / 2) + "px)");
+        sides.backSide.setVendorPrefixedStyle("transform", "rotateX(-180deg) translateZ(" + (descriptor.depth / 2) + "px)");
+        sides.leftSide.setVendorPrefixedStyle("transform", "rotateY(-90deg) translateZ(" + (descriptor.width / 2) + "px)");
+        sides.rightSide.setVendorPrefixedStyle("transform", "rotateY(90deg) translateZ(" + (descriptor.width / 2) + "px)");
+        sides.topSide.setVendorPrefixedStyle("transform", "rotateX(90deg) translateZ(" + (descriptor.height / 2) + "px)");
+        sides.bottomSide.setVendorPrefixedStyle("transform", "rotateX(-90deg) translateZ(" + (descriptor.height / 2) + "px)");
+        box.setVendorPrefixedStyle("transform", "translateZ( -" + (descriptor.depth / 2) + "px )");
+        setBonusProperties(sides, descriptor);
 
         function showFront() {
-            box.style.transform = "translateZ(-" + (descriptor.depth / 2) + "px) rotateY(0deg)";
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.depth / 2) + "px) rotateY(0deg)");
         }
 
         function showBack() {
-            box.style.transform = "translateZ(-" + (descriptor.depth / 2) + "px) rotateX(-180deg)";
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.depth / 2) + "px) rotateX(-180deg)");
         }
 
         function showLeft() {
-            box.style.transform = "translateZ(-" + (descriptor.width / 2) + "px) rotateY(90deg)";
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.width / 2) + "px) rotateY(90deg)");
         }
 
         function showRight() {
-            box.style.transform = "translateZ(-" + (descriptor.width / 2) + "px) rotateY(-90deg)";
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.width / 2) + "px) rotateY(-90deg)");
         }
 
         function showTop() {
-            box.style.transform = "translateZ(-" + (descriptor.height / 2) + "px) rotateX(-90deg)";
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.height / 2) + "px) rotateX(-90deg)");
         }
 
         function showBottom() {
-            box.style.transform = "translateZ(-" + (descriptor.height / 2) + "px) rotateX(90deg)";
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.height / 2) + "px) rotateX(90deg)");
         }
-
-        setBonusProperties(box, sides, descriptor);
-
         return {
             showFront: showFront,
             showBack: showBack,
@@ -90,13 +79,13 @@ BOXERJS = (function () {
         [left, right].forEach(function (side) {
             side.style.width = descriptor.depth + "px";
             side.style.height = descriptor.height + "px";
-            side.style.left = calculateLeft(descriptor) + "px";
+            side.style.left = ((descriptor.width - descriptor.depth) / 2 ) + "px";
         });
 
         [top, bottom].forEach(function (side) {
             side.style.width = descriptor.width + "px";
             side.style.height = descriptor.depth + "px";
-            side.style.top = calculateTop(descriptor) + "px";
+            side.style.top = ((descriptor.height - descriptor.depth) / 2) + "px";
         });
 
         return {
@@ -107,14 +96,6 @@ BOXERJS = (function () {
             topSide: top,
             bottomSide: bottom
         }
-    }
-
-    function calculateLeft(descriptor) {
-        return ((descriptor.width - descriptor.depth) / 2 );
-    }
-
-    function calculateTop(descriptor) {
-        return ((descriptor.height - descriptor.depth) / 2);
     }
 
     function setContainerStyles(container, descriptor) {
@@ -138,7 +119,7 @@ BOXERJS = (function () {
         });
     }
 
-    function setBonusProperties(box, sides, descriptor) {
+    function setBonusProperties(sides, descriptor) {
         for (var key in sides) {
             if (sides.hasOwnProperty(key)) {
                 sides[key].style.backfaceVisibility = descriptor.showBackfaces ? "visible" : "hidden";
@@ -183,12 +164,16 @@ BOXERJS = (function () {
         };
     }
 
-    var api = {
-        boxify: boxify
+    HTMLElement.prototype.setVendorPrefixedStyle = function(prop, val){
+        var capProp = prop.charAt(0).toUpperCase() + prop.slice(1);
+        this.style[capProp] = val;
+        this.style["webkit" + capProp] = val;
+        this.style["moz" + capProp] = val;
+        this.style["o" + capProp] = val;
+        this.style["ms" + capProp] = val;
     }
 
-    return api;
-}
-()
-)
-;
+    return {
+        boxify: boxify
+    };
+}());

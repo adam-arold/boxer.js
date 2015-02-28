@@ -8,9 +8,17 @@
 .box-container {
     margin: 10px auto;
     perspective-origin: 50% 120%;
+    -moz-perspective-origin: 50% 120%;
+    -webkit-perspective-origin: 50% 120%;
+    -o-perspective-origin: 50% 120%;
+    -ms-perspective-origin: 50% 120%;
 }
 .box {
     transition: all 0.85s;
+    -moz-transition: all 0.85s;
+    -o-transition: all 0.85s;
+    -ms-transition: all 0.85s;
+    -webkit-transition: all 0.85s;
 }
 .box figure {
     background-color: #eee;

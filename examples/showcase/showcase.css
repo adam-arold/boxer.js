@@ -10,6 +10,10 @@
 }
 .box {
     transition: all 0.85s;
+    -moz-transition: all 0.85s;
+    -o-transition: all 0.85s;
+    -ms-transition: all 0.85s;
+    -webkit-transition: all 0.85s;
 }
 .box figure {
     font-size: 2em;

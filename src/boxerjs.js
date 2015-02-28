@@ -100,7 +100,7 @@ var BOXERJS = (function () {
 
     function setContainerStyles(container, descriptor) {
         container.style.position = "relative";
-        container.style.perspective = "1000px";
+        container.setVendorPrefixedStyle("perspective", "1000px");
         container.style.width = descriptor.width + "px";
         container.style.height = descriptor.height + "px";
     }
@@ -109,7 +109,7 @@ var BOXERJS = (function () {
         box.style.position = "absolute";
         box.style.width = "100%";
         box.style.height = "100%";
-        box.style.transformStyle = "preserve-3d";
+        box.setVendorPrefixedStyle("transformStyle", "preserve-3d");
     }
 
     function setSideStyles(box) {
@@ -122,7 +122,7 @@ var BOXERJS = (function () {
     function setBonusProperties(sides, descriptor) {
         for (var key in sides) {
             if (sides.hasOwnProperty(key)) {
-                sides[key].style.backfaceVisibility = descriptor.showBackfaces ? "visible" : "hidden";
+                sides[key].setVendorPrefixedStyle("backfaceVisibility", descriptor.showBackfaces ? "visible" : "hidden");
             }
         }
     }
@@ -166,7 +166,7 @@ var BOXERJS = (function () {
 
     HTMLElement.prototype.setVendorPrefixedStyle = function(prop, val){
         var capProp = prop.charAt(0).toUpperCase() + prop.slice(1);
-        this.style[capProp] = val;
+        this.style[prop] = val;
         this.style["webkit" + capProp] = val;
         this.style["moz" + capProp] = val;
         this.style["o" + capProp] = val;

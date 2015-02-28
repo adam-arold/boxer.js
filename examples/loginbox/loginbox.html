@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Boxer.js test</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="loginbox.css" media="screen"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Example</div>
+                <div class="panel-body" id="example-panel">
+                    <section class="box-container">
+                        <div class="box show-front">
+                            <figure class="boxerjs-front">front</figure>
+                            <figure class="boxerjs-back">back</figure>
+                            <figure class="boxerjs-right">right</figure>
+                            <figure class="boxerjs-left">left</figure>
+                            <figure class="boxerjs-top">top</figure>
+                            <figure class="boxerjs-bottom">bottom</figure>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <section class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">Facings</div>
+                <div class="panel-body">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button class="show-front-button btn btn-default">Show front</button>
+                        <button class="show-back-button btn btn-default">Show back</button>
+                        <button class="show-right-button btn btn-default">Show right</button>
+                        <button class="show-left-button btn btn-default">Show left</button>
+                        <button class="show-top-button btn btn-default">Show top</button>
+                        <button class="show-bottom-button btn btn-default">Show bottom</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">Sizes</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="width">Width (px)</label>
+                        <input class="form-control" id="width" placeholder="300" value="300">
+                        <label for="height">Height (px)</label>
+                        <input class="form-control" id="height" placeholder="200" value="200">
+                        <label for="depth">Depth (px)</label>
+                        <input class="form-control" id="depth" placeholder="100" value="100">
+                        <div class="checkbox">
+                            <label>
+                                <input id="show-backfaces" type="checkbox"> Show backfaces
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button id="go-button" class="btn btn-info" type="submit">Go</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+<script src="../../utils.js"></script>
+<script src="../../src/boxerjs.js"></script>
+<script src="loginbox.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* for demo */
+.container {
+    margin-top: 10px;
+}
+#example-panel {
+    min-height: 250px;
+}
+.box-container {
+    border: 1px solid;
+}
+.box {
+    transition: all 0.85s;
+}
+.box figure {
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+.box .boxerjs-front {
+    background: hsla(000, 100%, 50%, 0.7);
+}
+
+.box .boxerjs-back {
+    background: hsla(160, 100%, 50%, 0.7);
+}
+
+.box .boxerjs-right {
+    background: hsla(120, 100%, 50%, 0.7);
+}
+
+.box .boxerjs-left {
+    background: hsla(180, 100%, 50%, 0.7);
+}
+
+.box .boxerjs-top {
+    background: hsla(240, 100%, 50%, 0.7);
+}
+
+.box .boxerjs-bottom {
+    background: hsla(300, 100%, 50%, 0.7);
+}

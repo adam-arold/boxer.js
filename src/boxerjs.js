@@ -1,8 +1,8 @@
 /**
  * boxer.js is a tiny library for creating rotating 3d boxes.
  */
-var BOXERJS = (function () {
-
+BOXERJS = (function () {
+    "use strict";
     /**
      * Boxifies the box (selected by <code>boxSelector</code>) inside the container (selected by <code>containerSelector</code>).
      * <code>boxSelector</code>s must be inside a <code>containerSeletor</code>. <em>Does not</em> work with multiple boxes.
@@ -153,9 +153,42 @@ var BOXERJS = (function () {
         // TODO: depth is not bigger than height or width
     }
 
+    // utils
+    if (!Element.prototype.hasClassName) {
+        Element.prototype.hasClassName = function (a) {
+            return new RegExp("(?:^|\\s+)" + a + "(?:\\s+|$)").test(this.className);
+        };
+    }
+
+    if (!Element.prototype.addClassName) {
+        Element.prototype.addClassName = function (a) {
+            if (!this.hasClassName(a)) {
+                this.className = [this.className, a].join(" ");
+            }
+        };
+    }
+
+    if (!Element.prototype.removeClassName) {
+        Element.prototype.removeClassName = function (b) {
+            if (this.hasClassName(b)) {
+                var a = this.className;
+                this.className = a.replace(new RegExp("(?:^|\\s+)" + b + "(?:\\s+|$)", "g"), " ");
+            }
+        };
+    }
+
+    if (!Element.prototype.toggleClassName) {
+        Element.prototype.toggleClassName = function (a) {
+            this[this.hasClassName(a) ? "removeClassName" : "addClassName"](a);
+        };
+    }
+
     var api = {
         boxify: boxify
     }
 
     return api;
-}());
+}
+()
+)
+;

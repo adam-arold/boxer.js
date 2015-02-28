@@ -63,10 +63,21 @@ The `boxify` function returns an object containing callbacks:
 Use them to flip your box to the appropriate side.
 
 ## Good to know
-There is an optional `boolean` parameter `showBackfaces` which you can use to turn backface visibility on/off.
+ * There is an optional `boolean` parameter `showBackfaces` which you can use to turn backface visibility on/off.
+ * The `depth` of a box must be smaller than its `width` and its `height` otherwise the size of the box container will vary thus messing up your page.
 
 ## Examples:
 
 Simple example with resizable box: [link](https://cdn.rawgit.com/adam-arold/boxer.js/master/examples/showcase/showcase.html)
 
 More real life example with a login box: [link](https://rawgit.com/adam-arold/boxer.js/master/examples/loginbox/loginbox.html)
+
+## Roadmap:
+ * Support for container/box selectors returning multiple elements
+
+## License
+Boxer.js is made available under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+
+## Credits
+Boxer.js is created and maintained by Adam Arold
+

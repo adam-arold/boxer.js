@@ -14,12 +14,21 @@ var BOXERJS = (function () {
      */
     function boxify(containerSelector, boxSelector, descriptor) {
         checkConstraints(containerSelector, boxSelector, descriptor);
+
+        var rotations = {
+            X: null,
+            Y: null,
+            Z: null
+        }
         var container = document.querySelector(containerSelector);
-        setContainerStyles(container, descriptor);
         var box = document.querySelector(boxSelector);
+
+        setContainerStyles(container, descriptor);
         setBoxStyles(box);
         setSideStyles(box);
+
         var sides = processSides(box, descriptor);
+
         sides.frontSide.setVendorPrefixedStyle("transform", "translateZ(" + (descriptor.depth / 2) + "px)");
         sides.backSide.setVendorPrefixedStyle("transform", "rotateX(-180deg) translateZ(" + (descriptor.depth / 2) + "px)");
         sides.leftSide.setVendorPrefixedStyle("transform", "rotateY(-90deg) translateZ(" + (descriptor.width / 2) + "px)");
@@ -27,38 +36,70 @@ var BOXERJS = (function () {
         sides.topSide.setVendorPrefixedStyle("transform", "rotateX(90deg) translateZ(" + (descriptor.height / 2) + "px)");
         sides.bottomSide.setVendorPrefixedStyle("transform", "rotateX(-90deg) translateZ(" + (descriptor.height / 2) + "px)");
         box.setVendorPrefixedStyle("transform", "translateZ( -" + (descriptor.depth / 2) + "px )");
+
         setBonusProperties(sides, descriptor);
 
+        function rotate(axis, deg) {
+            var fixedAxis = axis.toUpperCase()
+            rotations[fixedAxis] = deg;
+            var rotationStr = "";
+            Object.keys(rotations).forEach(function (key) {
+                if (rotations[key] !== null) {
+                    var rotationVal = rotations[key];
+                    var tz = Math.round((descriptor.depth / 2) / Math.tan(Math.PI / 4));
+                    rotationStr += "translateZ(-" + tz + "px) rotate" + key + "(" + rotationVal + "deg) "
+                    console.log(rotationStr)
+                }
+            });
+            box.setVendorPrefixedStyle("transform", rotationStr);
+        }
+
         function showFront() {
-            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.depth / 2) + "px) rotateY(0deg)");
+            rotate("Y", 0);
         }
 
         function showBack() {
-            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.depth / 2) + "px) rotateX(-180deg)");
+            rotate("X", -180);
         }
 
         function showLeft() {
-            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.width / 2) + "px) rotateY(90deg)");
+            rotate("Y", 90);
         }
 
         function showRight() {
-            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.width / 2) + "px) rotateY(-90deg)");
+            rotate("Y", -90);
         }
 
         function showTop() {
-            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.height / 2) + "px) rotateX(-90deg)");
+            rotate("X", -90);
         }
 
         function showBottom() {
-            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.height / 2) + "px) rotateX(90deg)");
+            rotate("X", 90);
         }
+
+        function rotateX(deg) {
+            rotate("X", deg)
+        }
+
+        function rotateY(deg) {
+            rotate("Y", deg)
+        }
+
+        function rotateZ(deg) {
+            rotate("Z", deg)
+        }
+
         return {
             showFront: showFront,
             showBack: showBack,
             showLeft: showLeft,
             showRight: showRight,
             showTop: showTop,
-            showBottom: showBottom
+            showBottom: showBottom,
+            rotateX: rotateX,
+            rotateY: rotateY,
+            rotateZ: rotateZ
         };
     }
 
@@ -164,7 +205,7 @@ var BOXERJS = (function () {
         };
     }
 
-    HTMLElement.prototype.setVendorPrefixedStyle = function(prop, val){
+    HTMLElement.prototype.setVendorPrefixedStyle = function (prop, val) {
         var capProp = prop.charAt(0).toUpperCase() + prop.slice(1);
         this.style[prop] = val;
         this.style["webkit" + capProp] = val;

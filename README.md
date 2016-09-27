@@ -78,9 +78,9 @@ Use them to flip your box to the appropriate side or rotate it.
  
 ## Examples:
 
-Simple example with resizable box: [link](https://cdn.rawgit.com/adam-arold/boxer.js/master/examples/showcase/showcase.html)
+Simple example with resizable box: [link](https://cdn.rawgit.com/adam-arold/boxer.js/rawgit-v1.0.0/examples/showcase/showcase.html)
 
-More real life example with a login box: [link](https://cdn.rawgit.com/adam-arold/boxer.js/master/examples/loginbox/loginbox.html)
+More real life example with a login box: [link](https://cdn.rawgit.com/adam-arold/boxer.js/rawgit-v1.0.0/examples/loginbox/loginbox.html)
 
 ## Roadmap:
  * Support for container/box selectors returning multiple elements

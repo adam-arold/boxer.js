@@ -2,7 +2,6 @@ var init = function() {
     var boxes = null;
 
     function boxify(){
-        console.log(document.querySelector("#show-backfaces").checked);
         boxes = BOXERJS.boxify(".box-container", ".box", {
             width : document.querySelector("#width").value,
             height : document.querySelector("#height").value,

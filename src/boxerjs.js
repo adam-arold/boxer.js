@@ -19,7 +19,8 @@ var BOXERJS = (function () {
             X: null,
             Y: null,
             Z: null
-        }
+        };
+
         var container = document.querySelector(containerSelector);
         var box = document.querySelector(boxSelector);
 
@@ -55,7 +56,9 @@ var BOXERJS = (function () {
         }
 
         function showFront() {
-            rotate("Y", 0);
+            rotateX(0);
+            rotateY(0);
+            rotateZ(0);
         }
 
         function showBack() {

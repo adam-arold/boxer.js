@@ -10,6 +10,7 @@ Pull reqeusts are also welcome!*
  - Load it in your html file
  - Boxify your boxes:
 
+
     ```javascript
     var boxes = BOXERJS.boxify({
         containerSelector: ".box-container",

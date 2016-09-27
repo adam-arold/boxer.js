@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>Boxer.js showcase</title>
-    <link href="../bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="showcase.css" media="screen"/>
 </head>
 <body>
@@ -44,6 +44,50 @@
                         <button class="show-left-button btn btn-default">Show left</button>
                         <button class="show-top-button btn btn-default">Show top</button>
                         <button class="show-bottom-button btn btn-default">Show bottom</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-warning">
+                <div class="panel-heading">Rotations</div>
+                <div class="panel-body">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="sr-only" for="rotateX">Rotate X</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="rotateX" placeholder="X deg" value="0">
+                                    <div class="input-group-addon">deg</div>
+                                </div>
+                            </div>
+                            <button id="rotateXButton" type="submit" class="btn btn-primary">Rotate X</button>
+                        </form>
+                        <br/>
+                    </div>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="sr-only" for="rotateX">Rotate Y</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="rotateY" placeholder="Y deg" value="0">
+                                    <div class="input-group-addon">deg</div>
+                                </div>
+                            </div>
+                            <button id="rotateYButton" type="submit" class="btn btn-primary">Rotate Y</button>
+                        </form>
+                        <br/>
+                    </div>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="sr-only" for="rotateX">Rotate Z</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="rotateZ" placeholder="Z deg" value="0">
+                                    <div class="input-group-addon">deg</div>
+                                </div>
+                            </div>
+                            <button id="rotateZButton" type="submit" class="btn btn-primary">Rotate Z</button>
+                        </form>
+                        <br/>
                     </div>
                 </div>
             </div>

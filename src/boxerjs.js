@@ -12,17 +12,12 @@ var BOXERJS = (function () {
      * @param descriptor
      * @returns {showFront: showFront, showBack: showBack, showLeft: showLeft, showRight: showRight, showTop: showTop, showBottom: showBottom}
      */
-    function boxify(containerSelector, boxSelector, descriptor) {
-        checkConstraints(containerSelector, boxSelector, descriptor);
+    function boxify(descriptor) {
+        checkConstraints(descriptor);
 
-        var rotations = {
-            X: null,
-            Y: null,
-            Z: null
-        };
-
-        var container = document.querySelector(containerSelector);
-        var box = document.querySelector(boxSelector);
+        var rotations = resetRotations();
+        var container = document.querySelector(descriptor["containerSelector"]);
+        var box = document.querySelector(descriptor["boxSelector"]);
 
         setContainerStyles(container, descriptor);
         setBoxStyles(box);
@@ -30,55 +25,52 @@ var BOXERJS = (function () {
 
         var sides = processSides(box, descriptor);
 
-        sides.frontSide.setVendorPrefixedStyle("transform", "translateZ(" + (descriptor.depth / 2) + "px)");
-        sides.backSide.setVendorPrefixedStyle("transform", "rotateX(-180deg) translateZ(" + (descriptor.depth / 2) + "px)");
-        sides.leftSide.setVendorPrefixedStyle("transform", "rotateY(-90deg) translateZ(" + (descriptor.width / 2) + "px)");
-        sides.rightSide.setVendorPrefixedStyle("transform", "rotateY(90deg) translateZ(" + (descriptor.width / 2) + "px)");
-        sides.topSide.setVendorPrefixedStyle("transform", "rotateX(90deg) translateZ(" + (descriptor.height / 2) + "px)");
-        sides.bottomSide.setVendorPrefixedStyle("transform", "rotateX(-90deg) translateZ(" + (descriptor.height / 2) + "px)");
-        box.setVendorPrefixedStyle("transform", "translateZ( -" + (descriptor.depth / 2) + "px )");
+        initBox(sides, box, descriptor);
 
-        setBonusProperties(sides, descriptor);
+
+        function showFront() {
+            rotations = resetRotations();
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.depth / 2) + "px) rotateX(0deg)");
+        }
+
+        function showBack() {
+            rotations = resetRotations();
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.depth / 2) + "px) rotateX(-180deg)");
+        }
+
+        function showLeft() {
+            rotations = resetRotations();
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.width / 2) + "px) rotateY(90deg)");
+        }
+
+        function showRight() {
+            rotations = resetRotations();
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.width / 2) + "px) rotateY(-90deg)");
+        }
+
+        function showTop() {
+            rotations = resetRotations();
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.height / 2) + "px) rotateX(-90deg)");
+        }
+
+        function showBottom() {
+            rotations = resetRotations();
+            box.setVendorPrefixedStyle("transform", "translateZ(-" + (descriptor.height / 2) + "px) rotateX(90deg)");
+        }
 
         function rotate(axis, deg) {
             var fixedAxis = axis.toUpperCase()
             rotations[fixedAxis] = deg;
-            var rotationStr = "";
+            var tz = Math.round((descriptor.depth / 2) / Math.tan(Math.PI / 4))
+            var rotationStr = "translateZ(-" + tz + "px)";
             Object.keys(rotations).forEach(function (key) {
                 if (rotations[key] !== null) {
                     var rotationVal = rotations[key];
-                    var tz = Math.round((descriptor.depth / 2) / Math.tan(Math.PI / 4));
-                    rotationStr += "translateZ(-" + tz + "px) rotate" + key + "(" + rotationVal + "deg) "
-                    console.log(rotationStr)
+                    rotationStr += " rotate" + key + "(" + rotationVal + "deg)";
                 }
             });
+            console.log(rotationStr);
             box.setVendorPrefixedStyle("transform", rotationStr);
-        }
-
-        function showFront() {
-            rotateX(0);
-            rotateY(0);
-            rotateZ(0);
-        }
-
-        function showBack() {
-            rotate("X", -180);
-        }
-
-        function showLeft() {
-            rotate("Y", 90);
-        }
-
-        function showRight() {
-            rotate("Y", -90);
-        }
-
-        function showTop() {
-            rotate("X", -90);
-        }
-
-        function showBottom() {
-            rotate("X", 90);
         }
 
         function rotateX(deg) {
@@ -93,6 +85,14 @@ var BOXERJS = (function () {
             rotate("Z", deg)
         }
 
+        function resetRotations() {
+            return {
+                X: null,
+                Y: null,
+                Z: null
+            }
+        }
+
         return {
             showFront: showFront,
             showBack: showBack,
@@ -104,6 +104,22 @@ var BOXERJS = (function () {
             rotateY: rotateY,
             rotateZ: rotateZ
         };
+    }
+
+    function initBox(sides, box, descriptor) {
+        sides.frontSide.setVendorPrefixedStyle("transform", "translateZ(" + (descriptor.depth / 2) + "px)");
+        sides.backSide.setVendorPrefixedStyle("transform", "rotateX(-180deg) translateZ(" + (descriptor.depth / 2) + "px)");
+        sides.leftSide.setVendorPrefixedStyle("transform", "rotateY(-90deg) translateZ(" + (descriptor.width / 2) + "px)");
+        sides.rightSide.setVendorPrefixedStyle("transform", "rotateY(90deg) translateZ(" + (descriptor.width / 2) + "px)");
+        sides.topSide.setVendorPrefixedStyle("transform", "rotateX(90deg) translateZ(" + (descriptor.height / 2) + "px)");
+        sides.bottomSide.setVendorPrefixedStyle("transform", "rotateX(-90deg) translateZ(" + (descriptor.height / 2) + "px)");
+        box.setVendorPrefixedStyle("transform", "translateZ( -" + (descriptor.depth / 2) + "px )");
+
+        for (var key in sides) {
+            if (sides.hasOwnProperty(key)) {
+                sides[key].setVendorPrefixedStyle("backfaceVisibility", descriptor.showBackfaces ? "visible" : "hidden");
+            }
+        }
     }
 
     function processSides(box, descriptor) {
@@ -163,15 +179,7 @@ var BOXERJS = (function () {
         });
     }
 
-    function setBonusProperties(sides, descriptor) {
-        for (var key in sides) {
-            if (sides.hasOwnProperty(key)) {
-                sides[key].setVendorPrefixedStyle("backfaceVisibility", descriptor.showBackfaces ? "visible" : "hidden");
-            }
-        }
-    }
-
-    function checkConstraints(containerSelector, boxSelector, descriptor) {
+    function checkConstraints(descriptor) {
         // TODO: multiple boxes
         // TODO: container exists
         // TODO: box is in container

@@ -10,16 +10,17 @@ Pull reqeusts are also welcome!*
  - Load it in your html file
  - Boxify your boxes:
 
-```javascript
-    BOXERJS.boxify(".box-container", ".box", {
-        width : 300,
-        height : 200,
-        depth : 100
+    ```javascript
+    var boxes = BOXERJS.boxify({
+        containerSelector: ".box-container",
+        boxSelector: ".box",
+        width: document.querySelector("#width").value,
+        height: document.querySelector("#height").value,
+        depth: document.querySelector("#depth").value,
+        showBackfaces: document.querySelector("#show-backfaces").checked
     });
-```
+    ```
 
-Use the first `containerSelector` parameter to supply the selector for your box's container tag.
-Use the second `boxSelector` parameter to supply the selector for your box tag.
 
 ### Important:
  * Both selectors must return exactly **one** result.
@@ -47,25 +48,33 @@ HTML example:
 </section>
 ```
 
-The `boxify` function returns an object containing callbacks:
+The `boxify` function returns an object containing functions to operate on your box:
 
 ```javascript
-    {
-        showFront,
-        showBack,
-        showLeft,
-        showRight,
-        showTop,
-        showBottom
-    }
+{
+    showFront,
+    showBack,
+    showLeft,
+    showRight,
+    showTop,
+    showBottom,
+    rotateX,
+    rotateY,
+    rotateZ,
+    resetRotations
+}
 ```
 
-Use them to flip your box to the appropriate side.
+Use them to flip your box to the appropriate side or rotate it.
 
 ## Good to know
  * There is an optional `boolean` parameter `showBackfaces` which you can use to turn backface visibility on/off.
  * The `depth` of a box must be smaller than its `width` and its `height` otherwise the size of the box container will vary thus messing up your page.
-
+ * The `show*` methods work differently compared to the `rotate*` methods: the `show*` methods will make your box stay within the bounds of the original container while the `rotate*` methods will rotate your box around its center. Check the examples to see how it works.
+ * You can have a box rotated around all its axes with calls to different `rotate*` methods. This means that the rotation state is persistent.
+ * You can reset the rotation state of a box by calling any of the `show*` methods
+ * You can have multiple *boxified* boxes on the same page but you have to supply unique identifiers for each of them.
+ 
 ## Examples:
 
 Simple example with resizable box: [link](https://cdn.rawgit.com/adam-arold/boxer.js/master/examples/showcase/showcase.html)

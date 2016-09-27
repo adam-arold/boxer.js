@@ -1,5 +1,7 @@
 window.addEventListener('DOMContentLoaded', function () {
-    var rotators = BOXERJS.boxify(".box-container", ".box", {
+    var boxes = BOXERJS.boxify({
+        containerSelector: ".box-container",
+        boxSelector: ".box",
         width: 300,
         height: 300,
         depth: 300,
@@ -8,34 +10,34 @@ window.addEventListener('DOMContentLoaded', function () {
     document.querySelector("#signin-button").addEventListener('click', function(event){
         event.preventDefault();
         document.querySelector("#username").innerHTML = document.querySelector("#inputUsername").value;
-        rotators.showLeft();
+        boxes.showLeft();
     }, false);
     document.querySelector("#forgot-password").addEventListener('click', function(event){
         event.preventDefault();
-        rotators.showBack();
+        boxes.showBack();
     }, false);
     document.querySelector("#proceed-to-sign-in").addEventListener('click', function(event){
         event.preventDefault();
-        rotators.showFront();
+        boxes.showFront();
     }, false);
     document.querySelector("#password-reset").addEventListener('click', function(event){
         event.preventDefault();
-        rotators.showRight();
+        boxes.showRight();
     }, false);
     document.querySelector("#log-out").addEventListener('click', function(event){
         event.preventDefault();
-        rotators.showTop();
+        boxes.showTop();
     }, false);
     document.querySelector("#sign-in-from-logout").addEventListener('click', function(event){
         event.preventDefault();
-        rotators.showFront();
+        boxes.showFront();
     }, false);
     document.querySelector("#view-profile").addEventListener('click', function(event){
         event.preventDefault();
-        rotators.showBottom();
+        boxes.showBottom();
     }, false);
     document.querySelector("#back").addEventListener('click', function(event){
         event.preventDefault();
-        rotators.showLeft();
+        boxes.showLeft();
     }, false);
 }, false);
